@@ -18,8 +18,33 @@ def calculate_shared_key(client_public_key):
     shared_key = pow(client_public_key, private_key_server, prime)
     return shared_key
 
+def expo (g,x,n):
+    P=1
+    S=g
+    k=len(bin(x))-2
+    if x&1==1 :
+        P=P*S
+    for i in range(1,k):
+        S=(S*S) % n
+        if (x>>i)&1!= 0:
+            P=(P*S) % n
+    return P
+
 @app.route('/key_exchange', methods=['POST'])
 def key_exchange():
+    """Diffie-Hellman Key Exchange.
+    1. Recupérer la clef du client `client_public_key` avec le paramètre JSON `public_key`
+    2. Claculer la clef partagé et renger la dans `client_shared_keys`
+    3. Calculer la clé publique du serveur `public_key`
+    4. envoyer la clef publique du server 
+    Parameters
+    ----------
+    public_key : number
+    
+
+    Returns
+    -------
+    """
     data = request.json
     if 'public_key' in data:
         client_public_key = data['public_key']
@@ -32,7 +57,7 @@ def key_exchange():
         #Afficher la clé partagée
 
         # Envoyer la clé publique au client 
-        return jsonify({'prime': prime, 'generator': generator, 'public_key': public_key, 'shared_key': shared_key})
+        return jsonify({'prime': prime, 'generator': generator, 'public_key': public_key})
     else:
         return jsonify({'error': 'Client public key not found'})
 
