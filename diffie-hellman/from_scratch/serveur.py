@@ -10,10 +10,10 @@ generator = 5
 client_shared_keys={}
 
 # Clé privée du serveur (générée aléatoirement)
-private_key_server = -1
+private_key_server = random.randint(1, prime - 1)
 
 # Calcul de la clé publique du client
-public_key = -1
+public_key = pow(generator, private_key_server, prime)
 
 # Fonction pour calculer la clé partagée
 def calculate_shared_key(client_public_key):
@@ -27,7 +27,7 @@ def key_exchange():
     if 'public_key' in data:
         client_public_key = data['public_key']
         # Calculer la clé partagée avec la clé publique du client
-        shared_key = -1
+        shared_key = calculate_shared_key(client_public_key)
         # Enregistrer la clé partagée avec le client (ne pas inclure dans la réponse)
         client_shared_keys[flask.request.remote_addr] = shared_key
         # Envoyer uniquement la clé publique du serveur au client
