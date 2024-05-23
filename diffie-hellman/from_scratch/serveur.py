@@ -35,10 +35,12 @@ def key_exchange():
         # Imprimer les informations reçues
         print("Client Public Key:", client_public_key)
         print("Shared Key (Client):", shared_key)
+
+        print("IP=",flask.request.remote_addr,"; PubC=",client_public_key,"; Share= ",shared_key)
         return flask.jsonify({'public_key': public_key})
     
     else:
         return flask.jsonify({'error': 'Client public key not found'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000,debug=True)
