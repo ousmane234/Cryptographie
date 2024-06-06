@@ -20,7 +20,7 @@ def secret_exchange():
 		cipher_secret= data['secret_key_ciphered']
 		# calcul de la cle partagé par le client
 		secret = pow(cipher_secret , d , n)
-		print(f'cle partage : {secret}')
+		print(f'secret : {secret}')
 		return flask.jsonify({'secret_key': secret})
 
 	else:

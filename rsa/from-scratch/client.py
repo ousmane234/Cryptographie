@@ -20,12 +20,11 @@ if response.status_code == 200 :
 	# chiffrement de la cle secrete avec la cle public du server 
 	secret_key_ciphered = pow(secret_key , e , n)
 	data = {"secret_key_ciphered": secret_key_ciphered}
-	print(data)
 	# envoyer le secret au server
 	response =requests.post(f'{url}/secret_exchange', json = data)
 	if response.status_code ==200:
 		# afficher le secret sur  la console
-		print(f'cle secret : {secret_key_ciphered}')
+		print(f' secret : {secret_key}')
 	else:
 		print("Erreur de reception du secret")	
 	
